@@ -1,0 +1,6 @@
+flask
+werkzeug
+psycopg2-binary
+scapy
+sockets
+
