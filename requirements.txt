@@ -3,4 +3,5 @@ werkzeug
 psycopg2-binary
 scapy
 sockets
+scikit-learn
 
