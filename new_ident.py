@@ -48,7 +48,7 @@ def ident_dos(max_conn, req_rate, header_size, total_req, host='localhost', port
             if sock == server_socket:
                 # Принимаем новое подключение
                 client_socket, client_address = server_socket.accept()
-                new_arr.append(f"New connection from {client_address}")
+                new_arr.append(f"Соединение установлено с  {client_address}")
                 print(f"New connection from {client_address}")
                 
                 # Добавляем новое подключение в список активных соединений
@@ -118,10 +118,10 @@ def ident_dos(max_conn, req_rate, header_size, total_req, host='localhost', port
                                 
                 except socket.error:
                     # Если возникает ошибка чтения данных из клиентского сокета, закрываем соединение
-                    res_arr.append(f"Closing connection from {connections[sock]}")
-                    print(f"Closing connection from {connections[sock]}")
+                    res_arr.append(f"Соединение закрыто [атака с хоста] -  {connections[sock]}")
+                    print(f"Соединение закрыто [атака с хоста] -  {connections[sock]}")
                     sock.close()
                     del connections[sock]
                     continue
 
-    return [res_arr, new_arr ,connections, ip_count]
+    return [new_arr, res_arr]
