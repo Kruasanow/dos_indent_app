@@ -51,101 +51,8 @@
 </head>
 
 <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
 
-    <!-- Header Section Begin -->
-    <header class="header-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-2 col-md-2">
-                    <div class="logo">
-                        <a href="#">
-                            <img src="{{ url_for('static', filename='img/123.png')}}" alt="" />
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-10 col-md-10">
-                    <div class="main-menu mobile-menu">
-                        <ul>
-                            <li class="active"><a href="/">Обновить</a></li>
-                            <li><a href="/about_us">О разработчике</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div id="mobile-menu-wrap"></div>
-        </div>
-    </header>
-
-    <style>
-        form {
-          display: flex;
-          flex-direction: column;
-          max-width: 400px;
-          margin: 0 auto;
-          padding: 20px;
-          background-color: #f5f5f5;
-          border-radius: 10px;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-      
-        label {
-          margin-bottom: 5px;
-          font-weight: bold;
-          font-size: 16px;
-        }
-      
-        input[type="text"] {
-          padding: 10px;
-          margin-bottom: 10px;
-          border-radius: 5px;
-          border: none;
-          box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-        }
-      
-        input[type="submit"] {
-          background-color: #4CAF50;
-          color: white;
-          padding: 10px;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-        }
-      
-        input[type="submit"]:hover {
-          background-color: #3e8e41;
-        }
-      </style>
-
-    <form method="POST" action="/">
-        <label for="host">Введите IP сервера:</label>
-        <input type="text" name="host" id="field-1"><br>
-      
-        <label for="port">Введите PORT сервера:</label>
-        <input type="text" name="port" id="field0"><br>
-
-        <label for="max_conn">Максимальное количество подключений:</label>
-        <input type="text" name="max_conn" id="field1"><br>
-      
-        <label for="max_req_insec_oneip">Максимальное количество запросов от одного хоста:</label>
-        <input type="text" name="max_req_insec_oneip" id="field2"><br>
-      
-        <label for="max_size_header">Максимальный размер заголовка:</label>
-        <input type="text" name="max_size_header" id="field3"><br>
-      
-        <label for="max_req_insec_allip">Максимальное количество запросов от множества хостов:</label>
-        <input type="text" name="max_req_insec_allip" id="field4"><br>
-
-      
-        <input type="submit" value="Защитить">
-      </form>
-      {% for i in r %}
-        {{ i }}
-      {% endfor %}
-    <!-- Header End -->
+    <img style="display: block; margin: 0 auto;" src="{{ url_for('static', filename='img/peter.png')}}" alt="" />
 
     <!-- About Us Section Begin -->
     <section class="about-us-section spad">
@@ -159,13 +66,9 @@
                 <div class="col-lg-6">
                     <div class="as-text">
                         <div class="section-title">
-                            <h2>О программе</h2>
+                            <h2>Никита Петров</h2>
                         </div>
-                        <p class="f-para">Программный комплекс предназначен для мониторинга сервера в режиме реального времени,
-                                        Администратор подает на вход программе IP и PORT сервера, указывает 
-                                        предельные велечины триггеров, после чего программа входит в фазу анализа,
-                                        при получении предельного значения одного из параметров, триггер срабатывает 
-                                        и на веб-форму выводится причина и IP/PORT атакующего. </p>
+                        <p class="f-para">Я просто тотальный уебан. </p>
                         <p class="s-para"> </p>
                         <!-- <a href="#" class="primary-btn">Read More</a> -->
                     </div>

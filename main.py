@@ -12,6 +12,8 @@ def index():
 
     if request.method == "POST":
 
+        host = request.form['host']
+        port = request.form['port']
         max_conn = request.form['max_conn']
         max_req_insec_oneip = request.form['max_req_insec_oneip']
         max_size_header = request.form['max_size_header']
@@ -20,15 +22,27 @@ def index():
         print(max_conn, max_req_insec_oneip, max_size_header, max_req_insec_allip)
         from new_ident import ident_dos
 
-        a = ident_dos(int(max_conn), int(max_req_insec_oneip), int(max_size_header), int(max_req_insec_allip))
+        a = ident_dos(int(max_conn), int(max_req_insec_oneip), int(max_size_header), int(max_req_insec_allip), host, int(port))
 
         return render_template(
                             'index.html',
                             r = a,
+                            host = host,
+                            port = port,
         )
 
     return render_template(
                            'index.html', 
+                          )
+
+
+@app.route('/about_us', methods = ['get','post'])
+def about_us():
+    print(url_for('about_us'))
+
+
+    return render_template(
+                           'about_us.html', 
                           )
 
 #-----LOAD------------------------------------------------------------------------------

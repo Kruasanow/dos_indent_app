@@ -2,7 +2,7 @@ import socket
 import select
 import time
 
-def ident_dos(max_conn, req_rate, header_size, total_req):
+def ident_dos(max_conn, req_rate, header_size, total_req, host='localhost', port='8080'):
 
     res_arr = []
     new_arr = []
@@ -33,7 +33,7 @@ def ident_dos(max_conn, req_rate, header_size, total_req):
     # Создаем серверный сокет
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    server_socket.bind(('localhost', 8080))
+    server_socket.bind((host, port))
     server_socket.listen(MAX_CONNECTIONS)
 
     # Устанавливаем серверный сокет в неблокирующий режим
