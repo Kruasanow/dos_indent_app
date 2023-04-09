@@ -1,0 +1,29 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="POST" action="/">
+        <label for="max_conn">Field 1:</label>
+        <input type="text" name="max_conn" id="field1"><br>
+      
+        <label for="max_req_insec_oneip">Field 2:</label>
+        <input type="text" name="max_req_insec_oneip" id="field2"><br>
+      
+        <label for="max_size_header">Field 3:</label>
+        <input type="text" name="max_size_header" id="field3"><br>
+      
+        <label for="max_req_insec_allip">Field 4:</label>
+        <input type="text" name="max_req_insec_allip" id="field4"><br>
+
+      
+        <input type="submit" value="Submit">
+      </form>
+      {% for i in r %}
+        {{ i }}
+      {% endfor %}
+</body>
+</html>

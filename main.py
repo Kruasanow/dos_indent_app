@@ -11,7 +11,21 @@ def index():
     print(url_for('index'))
 
     if request.method == "POST":
-        file = request.files['file']
+
+        max_conn = request.form['max_conn']
+        max_req_insec_oneip = request.form['max_req_insec_oneip']
+        max_size_header = request.form['max_size_header']
+        max_req_insec_allip = request.form['max_req_insec_allip']
+        
+        print(max_conn, max_req_insec_oneip, max_size_header, max_req_insec_allip)
+        from new_ident import ident_dos
+
+        a = ident_dos(int(max_conn), int(max_req_insec_oneip), int(max_size_header), int(max_req_insec_allip))
+
+        return render_template(
+                            'index.html',
+                            r = a,
+        )
 
     return render_template(
                            'index.html', 
