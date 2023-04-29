@@ -36,14 +36,71 @@ def index():
             add_dump(str(filename)) # add dump name to database
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
+            dnsd = []
+            tcpd = []
+            icmpd = []
+            arpd = []
+            ssdpd = []
+            ssld = []
+            mdnsd = []
+            datad = []
+            nbns = []
+            llmnrd =[]
+            httpd = []
+            vssmonitoringd = []
+            data_text_linesd = []
+            trash = []
+            list_proto = ['DNS','TCP','ICMP','ARP','SSDP','SSL','MDNS','DATA','NBNS','LLMNR','HTTP','VSSMONITORING','DATA_TEXT_LINES','OTHER']
+
+            all_proto = [dnsd, tcpd, icmpd, arpd, ssdpd, ssld, mdnsd, datad, nbns, llmnrd, httpd, vssmonitoringd, data_text_linesd, trash]
+
             dump = get_file(get_dname_from_db())
-            # print(dump[1])
-            # for packet in dump:
-            #         print(packet)
+            hlayer = []
+            for i in dump:
+                hlayer.append(i.highest_layer)
+                if list_proto[0] == i.highest_layer:
+                    all_proto[0].append(i)
+                if list_proto[1] == i.highest_layer:
+                    all_proto[1].append(i)
+                if list_proto[2] == i.highest_layer:
+                    all_proto[2].append(i)
+                if list_proto[3] == i.highest_layer:
+                    all_proto[3].append(i)
+                if list_proto[4] == i.highest_layer:
+                    all_proto[4].append(i)
+                if list_proto[5] == i.highest_layer:
+                    all_proto[5].append(i)
+                if list_proto[6] == i.highest_layer:
+                    all_proto[6].append(i)
+                if list_proto[7] == i.highest_layer:
+                    all_proto[7].append(i)
+                if list_proto[8] == i.highest_layer:
+                    all_proto[8].append(i)
+                if list_proto[9] == i.highest_layer:
+                    all_proto[9].append(i)
+                if list_proto[10] == i.highest_layer:
+                    all_proto[10].append(i)
+                if list_proto[11] == i.highest_layer:
+                    all_proto[11].append(i)
+                if list_proto[12] == i.highest_layer:
+                    all_proto[12].append(i)
+                else:
+                    all_proto[13].append(i)
+            # print(all_proto)
+            
+            count_proto = []
+            for i in all_proto:
+                count_proto.append(len(i))
+            print(list_proto)
+            print(count_proto)    
 
             return render_template(
                 'index.html',
-                d = dump
+                dlist = hlayer,
+                d = dump,
+                all_protocols = list_proto,
+                count_protocols = count_proto,
+
             )
     
         if 'host' in request.form:

@@ -155,8 +155,36 @@
       
         <input type="submit" value="Защитить">
       </form>
+      <style>
+		table {
+			border-collapse: collapse;
+			margin: auto;
+		}
+		th, td {
+			padding: 10px;
+			text-align: center;
+			border: 1px solid black;
+		}
+		th {
+			background-color: lightblue;
+		}
+	</style>
+      <table>
+		<tr>
+			<th>Протокол</th>
+			<th>Количество пакетов</th>
+		</tr>
+		{% for i in range(all_protocols|length) %}
+			<tr>
+				<td>{% if i < all_protocols|length %}{{ all_protocols[i] }}{% endif %}</td>
+				<td>{% if i < count_protocols|length %}{{ count_protocols[i] }}{% endif %}</td>
+			</tr>
+		{% endfor %}
+	  </table>
+
+
       {% for i in d %}
-        {{i}} <br>
+        {{i.highest_layer}} <br>
       {% endfor %}
       <div style="width: 50%; margin: 0 auto;">
         {% for i in r %}
