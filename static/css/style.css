@@ -113,6 +113,19 @@ ol {
   Helper CSS
 -----------------------*/
 
+.parent {
+	display: flex; /* Для создания гибкого контейнера */
+	justify-content: space-between;
+	/* text-align: center; */
+  }	
+
+.block1, .block2 .block3 {
+	display: inline-block; /* Для размещения таблиц в одну линию */
+	width: 20%; /* Для установки ширины таблиц */
+  }
+
+
+
 .section-title {
 	text-align: center;
 	margin-bottom: 60px;

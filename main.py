@@ -4,8 +4,7 @@ import sys
 import os
 from pyshark import FileCapture
 from real_ident_ddos import current_file
-from real_ident_ddos import add_dump
-from real_ident_ddos import get_dname_from_db, get_file
+from real_ident_ddos import add_dump, get_dname_from_db, get_file, build_circle, sort_traf, get_time, eq_koef, to_two_arr
 
 app = Flask(__name__)    
 app.secret_key = 'ebat_kakoy_secretniy_klu4'
@@ -50,11 +49,26 @@ def index():
             vssmonitoringd = []
             data_text_linesd = []
             trash = []
-            list_proto = ['DNS','TCP','ICMP','ARP','SSDP','SSL','MDNS','DATA','NBNS','LLMNR','HTTP','VSSMONITORING','DATA_TEXT_LINES','OTHER']
+            # list_proto = ['DNS','TCP','ICMP','ARP','SSDP','SSL','MDNS','DATA','NBNS','LLMNR','HTTP','VSSMONITORING','DATA_TEXT_LINES','OTHER']
+            list_proto = ['DNS','TCP','ICMP','ARP','SSL','HTTP','VSSMONITORING','DATA_TEXT_LINES','OTHER']
 
-            all_proto = [dnsd, tcpd, icmpd, arpd, ssdpd, ssld, mdnsd, datad, nbns, llmnrd, httpd, vssmonitoringd, data_text_linesd, trash]
+            # all_proto = [dnsd, tcpd, icmpd, arpd, ssdpd, ssld, mdnsd, datad, nbns, llmnrd, httpd, vssmonitoringd, data_text_linesd, trash]
+            all_proto = [dnsd, tcpd, icmpd, arpd, ssld, httpd, vssmonitoringd, data_text_linesd, trash]
 
-            dump = get_file(get_dname_from_db())
+
+            host = request.form['host']
+            limit = int(request.form['limit'])
+            
+            # dump_time = get_time(dump)
+
+            # res = eq_koef(limit,dump_time)
+
+            print(host)
+
+            dumpb = get_file(get_dname_from_db())
+            print('start dump - '+str(len(dumpb)))
+            dump = sort_traf(dumpb,host)
+            print('finish dump - '+str(len(dump)))
             hlayer = []
             for i in dump:
                 hlayer.append(i.highest_layer)
@@ -74,18 +88,18 @@ def index():
                     all_proto[6].append(i)
                 if list_proto[7] == i.highest_layer:
                     all_proto[7].append(i)
-                if list_proto[8] == i.highest_layer:
-                    all_proto[8].append(i)
-                if list_proto[9] == i.highest_layer:
-                    all_proto[9].append(i)
-                if list_proto[10] == i.highest_layer:
-                    all_proto[10].append(i)
-                if list_proto[11] == i.highest_layer:
-                    all_proto[11].append(i)
-                if list_proto[12] == i.highest_layer:
-                    all_proto[12].append(i)
+                # if list_proto[8] == i.highest_layer:
+                #     all_proto[8].append(i)
+                # if list_proto[9] == i.highest_layer:
+                #     all_proto[9].append(i)
+                # if list_proto[10] == i.highest_layer:
+                #     all_proto[10].append(i)
+                # if list_proto[11] == i.highest_layer:
+                #     all_proto[11].append(i)
+                # if list_proto[12] == i.highest_layer:
+                #     all_proto[12].append(i)
                 else:
-                    all_proto[13].append(i)
+                    all_proto[8].append(i)
             # print(all_proto)
             
             count_proto = []
@@ -94,34 +108,56 @@ def index():
             print(list_proto)
             print(count_proto)    
 
+            ddos_id = []
+            ddos_mb_id = []
+            ddos_no = []
+            for index in all_proto:
+                tm = get_time(index)
+                try:
+                    res = eq_koef(limit,tm)
+                except Exception:
+                    continue
+                if res == 2:
+                    ddos_id.append(index[0].highest_layer)
+                    ddos_id.append(tm)
+                if res == 1:
+                    ddos_mb_id.append(index[0].highest_layer)
+                    ddos_mb_id.append(tm)
+                if res == 0:
+                    ddos_no.append(index[0].highest_layer)
+                    ddos_no.append(tm)
+            print('########################')
+            print(to_two_arr(ddos_id))            
+            print(to_two_arr(ddos_mb_id))
+            print(to_two_arr(ddos_no))
+            warn_arr = to_two_arr(ddos_id)
+            alert_arr = to_two_arr(ddos_mb_id)
+            print('1########################')
+
+            circle = build_circle(list_proto,count_proto)
+
+
+            from real_ident_ddos import get_time_grath
+            p = 0
+            for ind in list_proto:
+                print(ind)
+                get_time_grath(dump,ind,p)
+                p+=1
+            
+
             return render_template(
                 'index.html',
                 dlist = hlayer,
                 d = dump,
                 all_protocols = list_proto,
                 count_protocols = count_proto,
+                circ = circle,
+                warn0 = warn_arr[0],
+                warn1 = warn_arr[1],
+                alert1 = alert_arr[0],
+                alert2 = alert_arr[1],
 
             )
-    
-        if 'host' in request.form:
-            host = request.form['host']
-            port = request.form['port']
-            max_conn = request.form['max_conn']
-            max_req_insec_oneip = request.form['max_req_insec_oneip']
-            max_size_header = request.form['max_size_header']
-            max_req_insec_allip = request.form['max_req_insec_allip']
-
-            print(max_conn, max_req_insec_oneip, max_size_header, max_req_insec_allip)
-        # from new_ident import ident_dos
-
-        # a = ident_dos(int(max_conn), int(max_req_insec_oneip), int(max_size_header), int(max_req_insec_allip), host, int(port))
-
-        return render_template(
-                            'index.html',
-                            # r = c,
-                            # host = host,
-                            # port = port,
-        )
 
     return render_template(
                            'index.html', 
