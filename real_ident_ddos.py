@@ -1,4 +1,5 @@
 from pyshark import FileCapture
+import asyncio
 
 UPLOAD_FOLDER = 'dump_input/'
 ALLOWED_EXTENSIONS = set(['pcap','pcapng'])
@@ -11,7 +12,9 @@ def get_file(name_of_file=None):
         full_way = 'dump_input/'+str(name_of_file)
         print('[*]osh.py: full way - ' +str(full_way))
         cap = FileCapture(full_way)
+        asyncio.get_child_watcher().attach_loop(cap.eventloop)
         print('[*]osh.py: cap for pyshark - ' +str(cap))
+
     except Exception:
         print('[*]osh.py: get_file - exceptions worked...')
     return cap
@@ -52,6 +55,4 @@ def current_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
-cap = get_file(get_dname_from_db())
-
-# print(cap[0])
+# cap = get_file(get_dname_from_db())

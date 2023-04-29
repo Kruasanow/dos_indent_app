@@ -2,6 +2,10 @@ from flask import Flask, render_template, url_for, request, session
 from werkzeug.utils import secure_filename
 import sys
 import os
+from pyshark import FileCapture
+from real_ident_ddos import current_file
+from real_ident_ddos import add_dump
+from real_ident_ddos import get_dname_from_db, get_file
 
 app = Flask(__name__)    
 app.secret_key = 'ebat_kakoy_secretniy_klu4'
@@ -10,21 +14,38 @@ UPLOAD_FOLDER = 'dump_input/'
 ALLOWED_EXTENSIONS = set(['pcap','pcapng'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+
+def current_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+
 @app.route('/', methods = ['get','post'])
 def index():
     print(url_for('index'))
 
     if request.method == "POST":
         file = request.files['file']
-        from real_ident_ddos import current_file
+
+        
+
         if file and current_file(file.filename):
             filename = secure_filename(file.filename)
             print('[*]main.py: filename - ' + str(filename))
-            from real_ident_ddos import add_dump
+
             add_dump(str(filename)) # add dump name to database
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        from real_ident_ddos import cap
+            dump = get_file(get_dname_from_db())
+            # print(dump[1])
+            # for packet in dump:
+            #         print(packet)
+
+            return render_template(
+                'index.html',
+                d = dump
+            )
+    
         if 'host' in request.form:
             host = request.form['host']
             port = request.form['port']

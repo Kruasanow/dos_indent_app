@@ -155,6 +155,9 @@
       
         <input type="submit" value="Защитить">
       </form>
+      {% for i in d %}
+        {{i}} <br>
+      {% endfor %}
       <div style="width: 50%; margin: 0 auto;">
         {% for i in r %}
             <h3>{{ i }}</h3> <br>
