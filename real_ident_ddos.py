@@ -89,7 +89,8 @@ def get_time_grath(a,name,c):
     ax.set_title(f'График {name} запросов')
     plt.xticks(rotation=25)
     # plt.show()
-    plt.savefig(f'/home/petrov/dos_indent_app/static/plotnik{c+1}.png')
+    # plt.savefig(f'/home/petrov/dos_indent_app/static/plotnik{c+1}.png')
+    plt.savefig(f'/home/ubuntu18/dos_indent_app/static/plotnik{c+1}.png')
     plt.close()
 
 def build_circle(labels,sizes):
