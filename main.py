@@ -165,7 +165,19 @@ def index():
         if 'ipb' in request.form:
             ipb = request.form['ipb']
             block_ip(str(ipb))
+	return render_template(
+                'index.html',
+                dlist = hlayer,
+                d = dump,
+                all_protocols = list_proto,
+                count_protocols = count_proto,
+                circ = circle,
+                warn0 = warn_arr[0],
+                warn1 = warn_arr[1],
+                alert1 = alert_arr[0],
+                alert2 = alert_arr[1],
 
+            )
 
     return render_template(
                            'index.html', 
