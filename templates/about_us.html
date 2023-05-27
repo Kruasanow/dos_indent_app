@@ -51,13 +51,79 @@
 </head>
 
 <body>
-
-    <img style="display: block; margin: 0 auto;" src="{{ url_for('static', filename='img/peter.png')}}" alt="" />
-
+    <style>
+        form {
+          display: flex;
+          flex-direction: column;
+          max-width: 400px;
+          margin: 0 auto;
+          padding: 20px;
+          background-color: #f5f5f5;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+      
+        label {
+          margin-bottom: 5px;
+          font-weight: bold;
+          font-size: 16px;
+        }
+      
+        input[type="text"] {
+          padding: 10px;
+          margin-bottom: 10px;
+          border-radius: 5px;
+          border: none;
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+      
+        input[type="submit"] {
+          background-color: #4CAF50;
+          color: white;
+          padding: 10px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+      
+        input[type="submit"]:hover {
+          background-color: #3e8e41;
+        }
+      </style>
+      <style>
+            .form-container {
+                display: flex;
+            }
+    
+            .form-container form {
+                margin-right: 10px;
+            }
+      </style>
+    <!-- <img style="display: block; margin: 0 auto;" src="{{ url_for('static', filename='img/peter.png')}}" alt="" /> -->
+        <form action="{{ url_for('about_us') }}" method=post enctype=multipart/form-data>
+        <p class="submit1">
+          <label for="proto">Выберите протокол для блокировки:</label>
+          <input type="text" name="proto" id="field-1"><br>
+          <label for="timeb">Время блокировки:</label>
+          <input type="text" name="timeb" id="field-1"><br>
+          <input type="submit" value="Заблокировать">
+        </p>
+        </form>
+        
+        <br><br>
+        <form action="{{ url_for('about_us') }}" method=post enctype=multipart/form-data>
+        <p class="submit1">
+          <label for="ipb">Выберите ip для блокировки:</label>
+          <input type="text" name="ipb" id="field-1"><br>
+          <input type="submit" value="Заблокировать">
+        </p>
+        </form>
+        <h5>{{a}}</h5>
+        <h5>{{b}}</h5>
     <!-- About Us Section Begin -->
     <section class="about-us-section spad">
         <div class="container">
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-lg-6">
                     <div class="as-pic">
                         <img src="img/about-us.jpg" alt="">
@@ -70,10 +136,10 @@
                         </div>
                         <p class="f-para">Я просто тотальный уебан. </p>
                         <p class="s-para"> </p>
-                        <!-- <a href="#" class="primary-btn">Read More</a> -->
+                        <a href="#" class="primary-btn">Read More</a> -->
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
     </section>
     <!-- About Us Section End -->
