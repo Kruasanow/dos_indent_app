@@ -143,7 +143,7 @@ def index():
                 print(ind)
                 get_time_grath(dump,ind,p)
                 p+=1
-            
+            ####
             return render_template(
                 'index.html',
                 dlist = hlayer,
@@ -158,14 +158,17 @@ def index():
 
             )
         from defense import block_ip, block_protocol
+        
         if 'proto' in request.form:
             proto = request.form['proto']
             timeb = request.form['timeb']
             block_protocol(str(proto),int(timeb))
+
         if 'ipb' in request.form:
             ipb = request.form['ipb']
             block_ip(str(ipb))
-	return render_template(
+            
+            return render_template(
                 'index.html',
                 dlist = hlayer,
                 d = dump,
@@ -175,8 +178,7 @@ def index():
                 warn0 = warn_arr[0],
                 warn1 = warn_arr[1],
                 alert1 = alert_arr[0],
-                alert2 = alert_arr[1],
-
+                alert2 = alert_arr[1]
             )
 
     return render_template(
