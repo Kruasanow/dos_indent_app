@@ -165,7 +165,14 @@ def eq_koef(limit,dtime):
         res = 0
     return res
 
+# def to_two_arr(original_list):
+#     even_list = original_list[::2] # четные индексы
+#     odd_list = original_list[1::2] # нечетные индексы
+#     # ip_list = 
+#     return [even_list,odd_list]
+
 def to_two_arr(original_list):
-    even_list = original_list[::2] # четные индексы
-    odd_list = original_list[1::2] # нечетные индексы
-    return [even_list,odd_list]
+    even_list = original_list[0::3]  # каждый третий элемент, начиная с индекса 0
+    odd_list = original_list[1::3]   # каждый третий элемент, начиная с индекса 1
+    ip_list = original_list[2::3]    # каждый третий элемент, начиная с индекса 2
+    return [even_list, odd_list, ip_list]
